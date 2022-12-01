@@ -8,7 +8,7 @@ FROM `nbcu-ds-prod-001.feed.adobe_clickstream`
 WHERE post_evar56 = 'ykcS11vsGHfNxNthsbsLB72iHoakv967k73BfHPKXwM=' 
 and post_cust_hit_time_gmt is not null 
 and post_evar7 is not null
-and post_evar7 not like "%Programme-cue-up%display"
+and post_evar7 not like "%display"
 and extract(YEAR from timestamp(post_cust_hit_time_gmt))=2022 
 and extract(month from timestamp(post_cust_hit_time_gmt))=11
 and extract(day from timestamp(post_cust_hit_time_gmt))=10)
@@ -19,9 +19,9 @@ Adobe_Date,
 Adobe_Timestamp,
 Player_Event,
 Binge_Details,
-case when Binge_Details like "%Programme-cue-up%auto-play" then "Auto-Play" 
-     when Binge_Details like "%Programme-cue-up%click" then "Clicked-Up-Next" 
-     when Binge_Details like "%Programme-cue-up%dismiss" then "Dismiss" 
+case when Binge_Details like "%auto-play" then "Auto-Play" 
+     when Binge_Details like "%click" then "Clicked-Up-Next" 
+     when Binge_Details like "%dismiss" then "Dismiss" 
      when Player_Event like "%details:%" and Binge_Details is not null then "Manual-Selection"
      when Player_Event is not null and Binge_Details is not null then "Unattributed"
 else null end as Video_Start_Type,
@@ -29,8 +29,8 @@ else null end as Video_Start_Type,
 '' Feeder_Video,
 '' Feeder_Video_Id,
 case when Player_Event like "%details:%" and Binge_Details is not null then REGEXP_REPLACE(Player_Event, r'\w+:', '')
-     when Binge_Details like "%Programme-cue-up%auto-play" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
-     when Binge_Details like "%Programme-cue-up%click" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
+     when Binge_Details like "%auto-play" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
+     when Binge_Details like "%click" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
 else null end as Display_Name,
 '' video_id,
 '' link_tracking,
