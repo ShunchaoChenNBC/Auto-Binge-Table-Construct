@@ -6,8 +6,9 @@ post_evar19 as Player_Event,
 post_evar7 as Binge_Details
 FROM `nbcu-ds-prod-001.feed.adobe_clickstream` 
 WHERE post_evar56 = 'ykcS11vsGHfNxNthsbsLB72iHoakv967k73BfHPKXwM=' 
-and post_cust_hit_time_gmt is not null
-and post_evar19 is not null
+and post_cust_hit_time_gmt is not null 
+and post_evar7 is not null
+and post_evar7 not like "%Programme-cue-up%display"
 and extract(YEAR from timestamp(post_cust_hit_time_gmt))=2022 
 and extract(month from timestamp(post_cust_hit_time_gmt))=11
 and extract(day from timestamp(post_cust_hit_time_gmt))=10)
@@ -22,7 +23,8 @@ case when Binge_Details like "%Programme-cue-up%auto-play" then "Auto-Play"
      when Binge_Details like "%Programme-cue-up%click" then "Clicked-Up-Next" 
      when Binge_Details like "%Programme-cue-up%dismiss" then "Dismiss" 
      when Player_Event like "%details:%" and Binge_Details is not null then "Manual-Selection"
-else 'Unattributed' end as Video_Start_Type,
+     when Player_Event is not null and Binge_Details is not null then "Unattributed"
+else null end as Video_Start_Type,
 '' device_name,
 '' Feeder_Video,
 '' Feeder_Video_Id,
@@ -53,7 +55,7 @@ deeplink_flag,
 num_seconds_played_no_ads
 FROM 
 `nbcu-ds-prod-001.PeacockDataMartSilver.SILVER_VIDEO`
-where extract (month from adobe_date) = 11 and extract (year from adobe_date) = 2022 and  extract (day from adobe_date) = 10
+where adobe_tracking_ID = 'ykcS11vsGHfNxNthsbsLB72iHoakv967k73BfHPKXwM='
+and extract (month from adobe_date) = 11 and extract (year from adobe_date) = 2022 and  extract (day from adobe_date) = 10
 and media_load = False and num_seconds_played_with_ads > 0
-and adobe_tracking_ID = 'ykcS11vsGHfNxNthsbsLB72iHoakv967k73BfHPKXwM='
 order by Adobe_Tracking_ID, Adobe_Timestamp;
