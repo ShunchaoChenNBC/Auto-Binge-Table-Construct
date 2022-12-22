@@ -20,7 +20,7 @@ Adobe_Timestamp,
 Player_Event,
 Binge_Details,
 case when Binge_Details like "%auto-play" then "Auto-Play" 
-     when Binge_Details like "%click" then "Clicked-Up-Next" 
+     when Binge_Details like '%cue%up%click' then "Clicked-Up-Next" 
      when Binge_Details like "%dismiss" then "Dismiss" 
      when Player_Event like "%details:%" and Binge_Details is not null then "Manual-Selection"
      when Player_Event is not null and Binge_Details is not null then "Unattributed"
@@ -30,7 +30,8 @@ else null end as Video_Start_Type,
 '' Feeder_Video_Id,
 case when Player_Event like "%details:%" and Binge_Details is not null then REGEXP_REPLACE(Player_Event, r'\w+:', '')
      when Binge_Details like "%auto-play" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
-     when Binge_Details like "%click" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
+     when Binge_Details like "%cue%up%click" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
+     when Binge_Details like 'rail%click'then REGEXP_EXTRACT(Binge_Details, r"[|]([a-zA-Z0-9\s-.:]+)[|]click")
 else null end as Display_Name,
 '' video_id,
 '' link_tracking,
