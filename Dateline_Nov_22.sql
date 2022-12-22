@@ -38,9 +38,9 @@ case when Binge_Details like "%auto-play" then "Auto-Play"
      when Binge_Details like '%deeplink%' then "Manual-Selection_(DeepLink)"
      when Binge_Details like 'rail%click'then "Manual-Selection_(RailClick)" 
 else null end as Video_Start_Type,
-'' device_name,
-'' Feeder_Video,
-'' Feeder_Video_Id,
+null device_name,
+null Feeder_Video,
+null Feeder_Video_Id,
 case when Player_Event like "%details:%" and Binge_Details is not null then REGEXP_REPLACE(Player_Event, r'\w+:', '')
      when Binge_Details like "%auto-play" then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
      when Binge_Details like '%cue%up%click' then  REGEXP_EXTRACT(Binge_Details, r"[|][|](.*)[|]")
