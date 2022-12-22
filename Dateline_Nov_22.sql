@@ -68,5 +68,5 @@ FROM
 where adobe_tracking_ID is not null 
 and adobe_date between '2022-11-01' and '2022-11-30'
 and media_load = False and num_seconds_played_with_ads > 0)
-where lower(display_name) = 'dateline: the last day'and Video_Start_Type is not null
+where lower(Display_Name) = 'dateline: the last day'and Video_Start_Type is not null
 order by 1, 2, 3;
