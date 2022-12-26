@@ -85,7 +85,7 @@ num_seconds_played_no_ads
 FROM 
 `nbcu-ds-prod-001.PeacockDataMartSilver.SILVER_VIDEO`
 where adobe_tracking_ID is not null 
-and adobe_date = '2022-10-31'
+and adobe_date between '2022-10-31' and '2022-11-01'
 and media_load = False and num_seconds_played_with_ads > 0)
 where lower(Display_Name) = "a friend of the family" and Video_Start_Type is not null
 )
