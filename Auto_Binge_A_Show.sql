@@ -12,7 +12,7 @@ WHERE post_evar56 is not null
 and post_cust_hit_time_gmt is not null 
 and post_evar7 is not null
 and post_evar7 not like "%display"
-and DATETIME(timestamp(post_cust_hit_time_gmt), "America/New_York") between '2022-10-31' and '2022-11-01'),
+and DATE(timestamp(post_cust_hit_time_gmt), "America/New_York") between '2022-10-31' and '2022-11-01'),
 
 cte as (select 
 Adobe_Tracking_ID,
